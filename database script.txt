@@ -9,12 +9,8 @@ DROP TABLE IF EXISTS category;
 CREATE TABLE category
 (
     PRIMARY KEY (id),
-    id               int AUTO_INCREMENT,
-    name             varchar(45) NOT NULL UNIQUE,
-    description      varchar(100),
-    created_at       datetime    NOT NULL,
-    last_modified_at datetime,
-    delete_at        datetime
+    id   int AUTO_INCREMENT,
+    name varchar(45) NOT NULL UNIQUE
 );
 
 DROP TABLE IF EXISTS vendor;
@@ -22,10 +18,9 @@ DROP TABLE IF EXISTS vendor;
 CREATE TABLE vendor
 (
     PRIMARY KEY (id),
-    id          int AUTO_INCREMENT,
-    name        varchar(45) NOT NULL UNIQUE,
-    description varchar(100),
-    address     varchar(100)
+    id      int AUTO_INCREMENT,
+    name    varchar(45) NOT NULL UNIQUE,
+    address varchar(100)
 );
 
 DROP TABLE IF EXISTS discount;
@@ -33,9 +28,8 @@ DROP TABLE IF EXISTS discount;
 CREATE TABLE discount
 (
     PRIMARY KEY (id),
-    id          int AUTO_INCREMENT,
-    percent     int NOT NULL UNIQUE,
-    description varchar(100)
+    id         int AUTO_INCREMENT,
+    percentage int NOT NULL UNIQUE
 );
 
 DROP TABLE IF EXISTS product;
@@ -46,25 +40,23 @@ CREATE TABLE product
     id                 int AUTO_INCREMENT,
     name               varchar(100) NOT NULL UNIQUE,
     description        varchar(100) NOT NULL,
-    category_id        int          NOT NULL,
-    brand              varchar(45)  NOT NULL,
-    vendor_id          int          NOT NULL,
-    SKU                varchar(45)  NOT NULL UNIQUE,
     price              double       NOT NULL,
+    brand              varchar(45)  NOT NULL,
+    SKU                varchar(45)  NOT NULL UNIQUE,
+    category_id        int          NOT NULL,
+    vendor_id          int          NOT NULL,
     discount_id        int          NOT NULL,
-    manufacturing_date datetime,
-    expiration_time    long,
-    created_at         datetime     NOT NULL,
-    last_modified_at   datetime,
-    delete_at          datetime,
+    created_at         date         NOT NULL,
+    last_modified_at   date,
+    delete_at          date,
     FOREIGN KEY (category_id) REFERENCES category (id),
     FOREIGN KEY (vendor_id) REFERENCES vendor (id),
     FOREIGN KEY (discount_id) REFERENCES discount (id)
 );
 
-DROP TABLE IF EXISTS product_image;
+DROP TABLE IF EXISTS image;
 
-CREATE TABLE product_image
+CREATE TABLE image
 (
     PRIMARY KEY (id),
     id         int AUTO_INCREMENT,
@@ -74,14 +66,13 @@ CREATE TABLE product_image
     FOREIGN KEY (product_id) REFERENCES product (id)
 );
 
-DROP TABLE IF EXISTS user_role;
+DROP TABLE IF EXISTS role;
 
-CREATE TABLE user_role
+CREATE TABLE role
 (
     PRIMARY KEY (id),
-    id          int AUTO_INCREMENT,
-    name        varchar(45),
-    description varchar(100)
+    id   int AUTO_INCREMENT,
+    name varchar(25)
 );
 
 DROP TABLE IF EXISTS user;
@@ -97,22 +88,29 @@ CREATE TABLE user
     address          varchar(100) NOT NULL,
     telephone        varchar(10)  NOT NULL UNIQUE,
     email            varchar(45)  NOT NULL UNIQUE,
-    created_at       datetime     NOT NULL,
-    last_modified_at datetime,
-    delete_at        datetime,
-    role_id          int          NOT NULL UNIQUE,
-    FOREIGN KEY (role_id) REFERENCES user_role (id)
+    created_at       date         NOT NULL,
+    last_modified_at date,
+    delete_at        date
 );
 
+DROP TABLE IF EXISTS user_role;
+
+CREATE TABLE user_role
+(
+    PRIMARY KEY (user_id, role_id),
+    user_id int NOT NULL,
+    role_id int NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES user (id),
+    FOREIGN KEY (role_id) REFERENCES role (id)
+);
 
 DROP TABLE IF EXISTS payment;
 
 CREATE TABLE payment
 (
     PRIMARY KEY (id),
-    id          int AUTO_INCREMENT,
-    name        varchar(45) NOT NULL UNIQUE,
-    description varchar(100)
+    id   int AUTO_INCREMENT,
+    name varchar(45) NOT NULL UNIQUE
 );
 
 DROP TABLE IF EXISTS shipment;
@@ -120,19 +118,17 @@ DROP TABLE IF EXISTS shipment;
 CREATE TABLE shipment
 (
     PRIMARY KEY (id),
-    id          int AUTO_INCREMENT,
-    name        varchar(45),
-    description varchar(100)
+    id   int AUTO_INCREMENT,
+    name varchar(45)
 );
 
-DROP TABLE IF EXISTS order_status;
+DROP TABLE IF EXISTS status;
 
-CREATE TABLE order_status
+CREATE TABLE status
 (
     PRIMARY KEY (id),
-    id          int AUTO_INCREMENT,
-    name        varchar(45),
-    description varchar(100)
+    id   int AUTO_INCREMENT,
+    name varchar(45)
 );
 
 DROP TABLE IF EXISTS `order`;
@@ -141,17 +137,17 @@ CREATE TABLE `order`
 (
     PRIMARY KEY (id),
     id               int AUTO_INCREMENT,
-    user_id          int      NOT NULL,
-    payment_id       int      NOT NULL,
-    shipment_id      int      NOT NULL,
-    status_id        int      NOT NULL,
-    created_at       datetime NOT NULL,
-    last_modified_at datetime,
-    delete_at        datetime,
+    user_id          int  NOT NULL,
+    payment_id       int  NOT NULL,
+    shipment_id      int  NOT NULL,
+    status_id        int  NOT NULL,
+    created_at       date NOT NULL,
+    last_modified_at date,
+    delete_at        date,
     FOREIGN KEY (user_id) REFERENCES user (id),
     FOREIGN KEY (payment_id) REFERENCES payment (id),
     FOREIGN KEY (shipment_id) REFERENCES shipment (id),
-    FOREIGN KEY (status_id) REFERENCES order_status (id)
+    FOREIGN KEY (status_id) REFERENCES status (id)
 );
 
 DROP TABLE IF EXISTS ordered_item;
@@ -161,7 +157,7 @@ CREATE TABLE ordered_item
     PRIMARY KEY (order_id, product_id),
     order_id   int NOT NULL,
     product_id int NOT NULL,
-    quantity   int,
+    quantity   int NOT NULL,
     FOREIGN KEY (order_id) REFERENCES `order` (id),
     FOREIGN KEY (product_id) REFERENCES product (id)
 )
