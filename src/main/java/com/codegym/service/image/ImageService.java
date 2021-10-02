@@ -27,7 +27,7 @@ public class ImageService implements IImageService{
 
     @Override
     public boolean remove(int id) {
-        return IMAGE_DAO.remove(id);
+        return IMAGE_DAO.delete(id);
     }
 
     @Override

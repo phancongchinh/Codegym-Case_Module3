@@ -1,4 +1,4 @@
-package com.codegym.controller.product;
+package com.codegym.controller;
 
 import com.codegym.model.Product;
 import com.codegym.service.product.IProductService;

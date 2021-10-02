@@ -1,4 +1,4 @@
-package com.codegym.controller.product;
+package com.codegym.controller;
 
 import com.codegym.model.Image;
 import com.codegym.service.image.IImageService;

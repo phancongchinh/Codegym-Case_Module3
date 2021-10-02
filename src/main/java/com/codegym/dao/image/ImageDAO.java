@@ -45,7 +45,7 @@ public class ImageDAO implements IImageDAO{
     }
 
     @Override
-    public boolean remove(int id) {
+    public boolean delete(int id) {
         return false;
     }
 

@@ -6,14 +6,12 @@ public class Product {
     private int id;
     private String name;
     private String description;
-    private int categoryId;
-    private String brand;
-    private int vendorId;
-    private String SKU;
     private double price;
+    private String brand;
+    private String SKU;
+    private int categoryId;
+    private int vendorId;
     private int discountId;
-    private LocalDate manufacturingDate;
-    private long expirationTime;
     private LocalDate createdAt;
     private LocalDate lastModifiedAt;
     private LocalDate deleteAt;
@@ -21,18 +19,16 @@ public class Product {
     public Product() {
     }
 
-    public Product(int id, String name, String description, int categoryId, String brand, int vendorId, String SKU, double price, int discountId, LocalDate manufacturingDate, long expirationTime, LocalDate createdAt, LocalDate lastModifiedAt, LocalDate deleteAt) {
+    public Product(int id, String name, String description, double price, String brand, String SKU, int categoryId, int vendorId, int discountId, LocalDate createdAt, LocalDate lastModifiedAt, LocalDate deleteAt) {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.categoryId = categoryId;
-        this.brand = brand;
-        this.vendorId = vendorId;
-        this.SKU = SKU;
         this.price = price;
+        this.brand = brand;
+        this.SKU = SKU;
+        this.categoryId = categoryId;
+        this.vendorId = vendorId;
         this.discountId = discountId;
-        this.manufacturingDate = manufacturingDate;
-        this.expirationTime = expirationTime;
         this.createdAt = createdAt;
         this.lastModifiedAt = lastModifiedAt;
         this.deleteAt = deleteAt;
@@ -108,22 +104,6 @@ public class Product {
 
     public void setDiscountId(int discountId) {
         this.discountId = discountId;
-    }
-
-    public LocalDate getManufacturingDate() {
-        return manufacturingDate;
-    }
-
-    public void setManufacturingDate(LocalDate manufacturingDate) {
-        this.manufacturingDate = manufacturingDate;
-    }
-
-    public long getExpirationTime() {
-        return expirationTime;
-    }
-
-    public void setExpirationTime(long expirationTime) {
-        this.expirationTime = expirationTime;
     }
 
     public LocalDate getCreatedAt() {
