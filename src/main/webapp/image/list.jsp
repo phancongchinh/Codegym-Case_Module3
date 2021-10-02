@@ -2,19 +2,21 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-    <title>Product List</title>
+    <title>Image List</title>
 </head>
 <body>
-<h1>Product List</h1>
+<h1>Image List</h1>
 <table>
     <tr>
         <th>ID</th>
         <th>Name</th>
+        <th>src</th>
     </tr>
-    <c:forEach items="${products}" var="pr">
+    <c:forEach items="${images}" var="image">
         <tr>
-            <td>${pr.id}</td>
-            <td>${pr.name}</td>
+            <td>${image.id}</td>
+            <td>${image.name}</td>
+            <td><img src="${image.src}" alt="${image.name}"></td>
         </tr>
     </c:forEach>
 </table>

@@ -5,10 +5,10 @@ import java.time.LocalDate;
 public class Product {
     private int id;
     private String name;
+    private String description;
     private int categoryId;
     private String brand;
     private int vendorId;
-    private String image;
     private String SKU;
     private double price;
     private int discountId;
@@ -19,6 +19,23 @@ public class Product {
     private LocalDate deleteAt;
 
     public Product() {
+    }
+
+    public Product(int id, String name, String description, int categoryId, String brand, int vendorId, String SKU, double price, int discountId, LocalDate manufacturingDate, long expirationTime, LocalDate createdAt, LocalDate lastModifiedAt, LocalDate deleteAt) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.categoryId = categoryId;
+        this.brand = brand;
+        this.vendorId = vendorId;
+        this.SKU = SKU;
+        this.price = price;
+        this.discountId = discountId;
+        this.manufacturingDate = manufacturingDate;
+        this.expirationTime = expirationTime;
+        this.createdAt = createdAt;
+        this.lastModifiedAt = lastModifiedAt;
+        this.deleteAt = deleteAt;
     }
 
     public int getId() {
@@ -35,6 +52,14 @@ public class Product {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public int getCategoryId() {
@@ -59,14 +84,6 @@ public class Product {
 
     public void setVendorId(int vendorId) {
         this.vendorId = vendorId;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
     }
 
     public String getSKU() {
